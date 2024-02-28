@@ -1,2 +1,2 @@
 # simple_shell
-A team project with `Sondos Essam` to implement a `simple_shell` project
+Developing a Simple Shell - ALX-Africa - Holberton School - Team Project
