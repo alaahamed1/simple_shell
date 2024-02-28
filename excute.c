@@ -1,5 +1,12 @@
 #include "header.h"
-
+/**
+ * make_path_arr - Extracts the value associated with
+ * the "PATH" environment variable from an array of strings.
+ * @str: Pointer to the array of strings.
+ * Return: Pointer to the character array containing
+ * the value of the "PATH" environment variable,
+ *or NULL if the "PATH" variable is not found.
+ */
 char *make_path_arr(char **str)
 {
 	int i = 0;
