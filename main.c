@@ -10,6 +10,7 @@ int main(int ac, char **arg, char **envp)
 {
 	char *en = NULL;
 	char **env = NULL;
+	int count = 0;
 
 	(void)ac;
 	en = make_path_arr(envp);
@@ -18,9 +19,9 @@ int main(int ac, char **arg, char **envp)
 
 
 	if (isatty(STDIN_FILENO))
-		display_prompet(env, envp, arg);
+		display_prompet(env, envp, arg, count);
 	else
-		non_interactive_mode(env, arg, envp);
+		non_interactive_mode(env, arg, envp, count);
 
 	return (0);
 }
