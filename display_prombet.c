@@ -14,12 +14,11 @@ void display_dollar_sign(void)
  * check_state - do a the final check on the command
  * @is_cmplte: chekc the command state
  * @argv: argv
- * @cnt: no of commands done
  * @file: filename
  * @env: envirnment
  * Return: void
 */
-void check_state(int is_cmplte, char **argv, int cnt, char *file, char **env)
+void check_state(int is_cmplte, char **argv, char *file, char **env)
 {
 	char *pathname = NULL;
 
@@ -27,11 +26,11 @@ void check_state(int is_cmplte, char **argv, int cnt, char *file, char **env)
 	if (!is_cmplte)
 	{
 		pathname = compare_and_set_env(env, argv);
-		check_if_true(pathname, argv, cnt, file);
+		check_if_true(pathname, argv, file);
 		free(pathname);
 	}
 	else
-		check_if_true(argv[0], argv, cnt, file);
+		check_if_true(argv[0], argv, file);
 	free_grid(argv);
 }
 /**
@@ -39,10 +38,9 @@ void check_state(int is_cmplte, char **argv, int cnt, char *file, char **env)
  * @env: envro
  * @envp: envp
  * @arg: arg
- * @count: count
  * Return: void
 */
-void display_prompet(char **env, char **envp, char **arg, int count)
+void display_prompet(char **env, char **envp, char **arg)
 {
 	char *filename = arg[0];
 	char *buff = NULL;
@@ -53,7 +51,6 @@ void display_prompet(char **env, char **envp, char **arg, int count)
 
 	while (isatty(STDIN_FILENO))
 	{
-		count++;
 		display_dollar_sign();
 		t = _getline(&buff, &n, stdin);
 		if (strcmp(buff, "\n") == 0 || check_the_spaces(buff) == 0)
@@ -81,7 +78,7 @@ void display_prompet(char **env, char **envp, char **arg, int count)
 			perror("invalid pls try again");
 			continue;
 		}
-		check_state(is_compelte, argv, count, filename, env);
+		check_state(is_compelte, argv, filename, env);
 		free(buff);
 	}
 }
@@ -90,10 +87,9 @@ void display_prompet(char **env, char **envp, char **arg, int count)
  * @env: envro
  * @arg: envp
  * @envp: arg
- * @count: count
  * Return: void
 */
-void non_interactive_mode(char **env, char **arg, char **envp, int count)
+void non_interactive_mode(char **env, char **arg, char **envp)
 {
 	char *filename = arg[0];
 	char *buff = NULL;
@@ -104,7 +100,6 @@ void non_interactive_mode(char **env, char **arg, char **envp, int count)
 	size_t n = 2048;
 	char **argv = NULL;
 
-	count++;
 	t = _getline(&buff, &n, stdin);
 	if ((int)t == -1 || isExit(buff) == 1)
 	{
@@ -128,7 +123,7 @@ void non_interactive_mode(char **env, char **arg, char **envp, int count)
 		argv = spilt_string(" ", *(buff2 + i));
 		if (argv == NULL)
 			perror("invalid pls try again");
-		check_state(is_compelte, argv, count, filename, env);
+		check_state(is_compelte, argv, filename, env);
 		i++;
 	}
 	free_grid(env);
