@@ -1,8 +1,5 @@
 #include"header.h"
-/**
- * display_dollar_sign - display problemt
- * Return: non
-*/
+
 void display_dollar_sign(void)
 {
 	char *prombet = "$ ";
