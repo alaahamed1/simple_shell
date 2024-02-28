@@ -51,3 +51,13 @@ int _getline(char **line_ptr, size_t *n, FILE *stream)
 	free(tmp);
 	return (numberofchars);
 }
+/**
+ * _strtok - get_line custimized function
+ * @str: pointer the the buffer to store read data
+ * @delim: size of the data being read
+ * Return: void
+ */
+char *_strtok(char *str, char *delim)
+{
+	return(strtok(str, delim));
+}
