@@ -120,7 +120,7 @@ void non_interactive_mode(char **env, char **arg, char **envp, int count)
 		{
 			print_env(envp);
 			free_grid(env);
-			free(buff2);
+			free_grid(buff2);
 			free(buff);
 			exit(0);
 		}
