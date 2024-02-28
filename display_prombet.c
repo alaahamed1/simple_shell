@@ -85,7 +85,14 @@ void display_prompet(char **env, char **envp, char **arg, int count)
 		free(buff);
 	}
 }
-
+/**
+ * non_interactive_mode - function
+ * @env: envro
+ * @arg: envp
+ * @envp: arg
+ * @count: count
+ * Return: void
+*/
 void non_interactive_mode(char **env, char **arg, char **envp, int count)
 {
 	char *filename = arg[0];
