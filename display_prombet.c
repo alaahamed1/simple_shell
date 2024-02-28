@@ -47,7 +47,7 @@ void display_prompet(char **env, char **envp, char **arg, int count)
 	char *filename = arg[0];
 	char *buff = NULL;
 	size_t t = 0;
-	size_t n = 2048;
+	size_t n = 10000;
 	int is_compelte = 0;
 	char **argv = NULL;
 
