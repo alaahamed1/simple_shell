@@ -34,7 +34,14 @@ void check_state(int is_cmplte, char **argv, int cnt, char *file, char **env)
 		check_if_true(argv[0], argv, cnt, file);
 	free_grid(argv);
 }
-
+/**
+ * display_prompet - function
+ * @env: envro
+ * @envp: envp
+ * @arg: arg
+ * @count: count
+ * Return: void
+*/
 void display_prompet(char **env, char **envp, char **arg, int count)
 {
 	char *filename = arg[0];
