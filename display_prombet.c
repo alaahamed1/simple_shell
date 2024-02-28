@@ -106,7 +106,7 @@ void non_interactive_mode(char **env, char **arg, char **envp, int count)
 
 	count++;
 	t = _getline(&buff, &n, stdin);
-	if ((int)t == -1 || isExit(buff) == 1)
+	if ((int)t == -1 || isExit(buff) == 1 || check_the_spaces(buff) == 0)
 	{
 		free_grid(env);
 		free(buff);
