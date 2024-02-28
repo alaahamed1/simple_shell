@@ -10,7 +10,15 @@ void display_dollar_sign(void)
 	write(STDOUT_FILENO, prombet, 2);
 	fflush(stdout);
 }
-
+/**
+ * check_state - do a the final check on the command
+ * @is_cmplte: chekc the command state
+ * @argv: argv
+ * @cnt: no of commands done
+ * @file: filename
+ * @env: envirnment
+ * Return: void
+*/
 void check_state(int is_cmplte, char **argv, int cnt, char *file, char **env)
 {
 	char *pathname = NULL;
