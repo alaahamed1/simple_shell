@@ -34,16 +34,15 @@ int check_the_slash(char *str)
  * check_if_true- fucntion
  * @pathname: pathname
  * @argv: argv
- * @count: count
  * @filename: filename
  * Return: void
 */
-void check_if_true(char *pathname, char **argv, int count, char *filename)
+void check_if_true(char *pathname, char **argv, char *filename)
 {
 	if (pathname != NULL && access(pathname, X_OK) == 0)
 		excute_function(argv, pathname, filename);
 	else
-		printf("%s: %d: %s: No such file or directory\n", filename, count, argv[0]);
+		printf("%s: No such file or directory\n", filename);
 }
 /**
  * isExit - function for the exit command
