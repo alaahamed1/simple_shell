@@ -101,7 +101,7 @@ void non_interactive_mode(char **env, char **arg, char **envp, int count)
 	int is_compelte = 0;
 	int i = 0;
 	size_t t = 0;
-	size_t n = 2048;
+	size_t n = 10000;
 	char **argv = NULL;
 
 	count++;
