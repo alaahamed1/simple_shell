@@ -27,7 +27,7 @@ int countwords(char *str, char *d)
 			n++;
 			flag = 0;
 		}
-		if( str[i] != '\0')
+		if (str[i] != '\0')
 			i++;
 	}
 	if ((i - 2 >= 0) && str[i - 2] == delim && str[i - 2] != '\0')
