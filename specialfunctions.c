@@ -59,5 +59,5 @@ int _getline(char **line_ptr, size_t *n, FILE *stream)
  */
 char *_strtok(char *str, char *delim)
 {
-	return(strtok(str, delim));
+	return (strtok(str, delim));
 }
