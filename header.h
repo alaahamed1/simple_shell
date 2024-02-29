@@ -21,6 +21,7 @@ void display_prompet(char **env, char **envp, char **arg, int count);
 void non_interactive_mode(char **env, char **arg, char **envp, int count);
 void check_if_true(char *pathname, char **argv, int count, char *filename);
 int _getline(char **line_ptr, size_t *n, FILE *stream);
+char *_strtok(char *str, char *delim);
 int check_the_spaces(char *buff);
 void free_fun(char **tmp, int i, char *tmp2);
 void check_state(int is_cmplte, char **argv, int cnt, char *file, char **env);
