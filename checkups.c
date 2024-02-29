@@ -1,9 +1,9 @@
-#include"header.h"
+#include "header.h"
 /**
  * check_the_spaces - check if iput is only spaces
  * @buff: buff
  * Return: interger
-*/
+ */
 int check_the_spaces(char *buff)
 {
 	int i = 0;
@@ -21,7 +21,7 @@ int check_the_spaces(char *buff)
  * check_the_slash - function to check if there's a slash or not
  * @str: the string to be checked
  * Return: integer
-*/
+ */
 int check_the_slash(char *str)
 {
 	if (str[0] == '/' || str[0] == '.')
@@ -37,28 +37,36 @@ int check_the_slash(char *str)
  * @count: count
  * @filename: filename
  * Return: void
-*/
+ */
 void check_if_true(char *pathname, char **argv, int count, char *filename)
 {
 	if (pathname != NULL && access(pathname, X_OK) == 0)
 		excute_function(argv, pathname, filename);
 	else
-		printf("%s: %d: %s: No such file or directory\n", filename, count, argv[0]);
+		printf("%s: %d: %s: not found\n", filename, count, argv[0]);
 }
 /**
  * isExit - function for the exit command
  * @c: the buffer
  * Return: int
-*/
+ */
 int isExit(char *c)
 {
 	char *exii = NULL;
+	int num = 0;
+	const char *tmp;
 
-	if (c[strlen(c) - 1] == '\n')
-		c[strlen(c) - 1] = '\0';
+		if (c[strlen(c) - 1] == '\n')
+			c[strlen(c) - 1] = '\0';
 	exii = "exit";
-	if (strcmp(c, exii) == 0)
-		return (1);
-	else
-		return (0);
+	if (strncmp(c, exii, 4) == 0)
+	{
+		if (c[5] == '\0')
+			return (-1);
+		tmp = c + 5;
+
+		num = atoi(tmp);
+		return (num);
+	}
+	return (0);
 }
