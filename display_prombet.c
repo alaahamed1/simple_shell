@@ -44,12 +44,9 @@ void check_state(int is_cmplte, char **argv, int cnt, char *file, char **env)
  */
 void display_prompet(char **env, char **envp, char **arg, int count)
 {
-	char *filename = arg[0];
-	char *buff = NULL;
-	size_t t = 0;
-	size_t n = 10000;
-	int is_compelte = 0;
-	char **argv = NULL;
+	char *filename = arg[0], *buff = NULL, **argv = NULL;
+	size_t t = 0, n = 10000;
+	int is_compelte = 0, status = 0;
 
 	while (isatty(STDIN_FILENO))
 	{
@@ -61,11 +58,14 @@ void display_prompet(char **env, char **envp, char **arg, int count)
 			free(buff);
 			continue;
 		}
-		else if ((int)t == -1 || isExit(buff) == 1)
+		status = isExit(buff);
+		if ((int)t == -1 || status != 0)
 		{
 			free_grid(env);
 			free(buff);
-			exit(0);
+			if (status == -1)
+				exit(0);
+			exit(status);
 		}
 		else if ((t > 0) && (buff[t - 1] == '\n'))
 			buff[t - 1] = '\0';
@@ -95,33 +95,34 @@ void display_prompet(char **env, char **envp, char **arg, int count)
  */
 void non_interactive_mode(char **env, char **arg, char **envp, int count)
 {
-	char *filename = arg[0];
-	char *buff = NULL;
-	char **buff2 = NULL;
-	int is_compelte = 0;
-	int i = 0;
-	size_t t = 0;
-	size_t n = 10000;
-	char **argv = NULL;
+	char *filename = arg[0], *buff = NULL, **buff2 = NULL, **argv = NULL;
+	int is_compelte = 0, i = 0, status = 0;
+	size_t t = 0, n = 10000;
 
-	count++;
 	t = _getline(&buff, &n, stdin);
-	if ((int)t == -1 || isExit(buff) == 1 || check_the_spaces(buff) == 0)
+	status = isExit(buff);
+	if ((int)t == -1 || status != 0 || check_the_spaces(buff) == 0)
 	{
 		free_grid(env);
 		free(buff);
-		exit(0);
+		exit(status);
 	}
 	buff[strlen(buff)] = '\0';
 	buff2 = spilt_string("\n", buff);
 	while (*(buff2 + i) != NULL)
 	{
+		count++;
 		argv = spilt_string(" ", *(buff2 + i));
 		if (argv == NULL)
 			perror("invalid pls try again");
-		if (isExit(*argv) == 1)
+
+		if (status == 1)
 		{
-			free_grid(env), free_grid(buff2), free_grid(argv), free(buff), exit(2);
+			free_grid(env), free_grid(buff2), free_grid(argv), free(buff), exit(0);
+		}
+		else if (status != 0)
+		{
+			free_grid(env), free_grid(buff2), free_grid(argv), free(buff), exit(status);
 		}
 		if (strcmp(*(buff2 + i), "env") == 0)
 		{
