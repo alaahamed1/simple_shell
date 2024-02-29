@@ -1,8 +1,8 @@
-#include"header.h"
+#include "header.h"
 /**
  * display_dollar_sign - display problemt
  * Return: non
-*/
+ */
 void display_dollar_sign(void)
 {
 	char *prombet = "$ ";
@@ -18,7 +18,7 @@ void display_dollar_sign(void)
  * @file: filename
  * @env: envirnment
  * Return: void
-*/
+ */
 void check_state(int is_cmplte, char **argv, int cnt, char *file, char **env)
 {
 	char *pathname = NULL;
@@ -41,7 +41,7 @@ void check_state(int is_cmplte, char **argv, int cnt, char *file, char **env)
  * @arg: arg
  * @count: count
  * Return: void
-*/
+ */
 void display_prompet(char **env, char **envp, char **arg, int count)
 {
 	char *filename = arg[0];
@@ -92,7 +92,7 @@ void display_prompet(char **env, char **envp, char **arg, int count)
  * @envp: arg
  * @count: count
  * Return: void
-*/
+ */
 void non_interactive_mode(char **env, char **arg, char **envp, int count)
 {
 	char *filename = arg[0];
@@ -116,18 +116,18 @@ void non_interactive_mode(char **env, char **arg, char **envp, int count)
 	buff2 = spilt_string("\n", buff);
 	while (*(buff2 + i) != NULL)
 	{
-		if (strcmp(*(buff2 + i), "env") == 0)
-		{
-			print_env(envp);
-			free_grid(env);
-			free_grid(buff2);
-			free(buff);
-			exit(0);
-		}
-
 		argv = spilt_string(" ", *(buff2 + i));
 		if (argv == NULL)
 			perror("invalid pls try again");
+		if (isExit(*argv) == 1)
+		{
+			free_grid(env), free_grid(buff2), free_grid(argv), free(buff), exit(2);
+		}
+		if (strcmp(*(buff2 + i), "env") == 0)
+		{
+			print_env(envp), free_grid(env), free_grid(buff2), free(buff), exit(0);
+		}
+
 		check_state(is_compelte, argv, count, filename, env);
 		i++;
 	}
