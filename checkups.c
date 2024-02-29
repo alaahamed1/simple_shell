@@ -24,7 +24,7 @@ int check_the_spaces(char *buff)
 */
 int check_the_slash(char *str)
 {
-	if (str[0] == '/')
+	if (str[0] == '/' || str[0] == '.')
 		return (1);
 	else
 		return (0);
