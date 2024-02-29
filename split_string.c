@@ -82,7 +82,7 @@ char **spilt_string(char *delim, char *str)
 		free(tmp2);
 		return (NULL);
 	}
-	tokn = strtok(tmp2, delim);
+	tokn = _strtok(tmp2, delim);
 	tokn[strlen(tokn)] = '\0';
 	while (tokn != NULL)
 	{
@@ -97,7 +97,7 @@ char **spilt_string(char *delim, char *str)
 		strcpy(tmp[i], tokn);
 		tmp[i][token_len] = '\0';
 		i++;
-		tokn = strtok(NULL, delim);
+		tokn = _strtok(NULL, delim);
 	}
 	free(tmp2);
 	tmp[i] = NULL;
