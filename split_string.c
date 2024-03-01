@@ -19,8 +19,8 @@ int countwords(char *str, char *d)
 	{
 		while (str[i] == delim)
 		{
-			i++;
 			flag = 1;
+			i++;
 		}
 		if (flag == 1)
 		{
@@ -31,7 +31,7 @@ int countwords(char *str, char *d)
 			i++;
 	}
 	if (str[i - 1] != ' ' && str[i - 2] == ' ')
-		n++; 
+		n++;
 	if ((i - 2 >= 0) && str[i - 2] == delim && str[i - 2] != '\0')
 		n--;
 	return (n + 1);
@@ -42,7 +42,7 @@ int countwords(char *str, char *d)
  * @i: unitll Is elemnts
  * @tmp2: the command aprt
  * Return: void
-*/
+ */
 void free_fun(char **tmp, int i, char *tmp2)
 {
 	int j;

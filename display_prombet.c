@@ -11,6 +11,7 @@ void display_dollar_sign(void)
 	fflush(stdout);
 }
 int status = 0;
+int errno;
 /**
  * check_state - do a the final check on the command
  * @is_cmplte: chekc the command state
@@ -51,16 +52,20 @@ void display_prompet(char **env, char **envp, char **arg, int count)
 
 	while (isatty(STDIN_FILENO))
 	{
+
 		count++;
 		display_dollar_sign();
 		t = _getline(&buff, &n, stdin);
-		if(t == -1)
+		if (t == -1)
 		{
-			free_grid(env), exit(status);
+			free_grid(env);
+			exit(status);
 		}
-		if(isExit(buff) != 0)
+		if (isExit(buff) != 0)
 		{
-			free_grid(env),free(buff),exit(status);
+			free_grid(env);
+			free(buff);
+			exit(status);
 		}
 		if (strcmp(buff, "\n") == 0 || check_the_spaces(buff) == 0)
 		{
@@ -82,6 +87,7 @@ void display_prompet(char **env, char **envp, char **arg, int count)
 			continue;
 		}
 		check_state(is_compelte, argv, count, filename, env);
+
 		free(buff);
 	}
 }
@@ -113,19 +119,21 @@ void non_interactive_mode(char **env, char **arg, char **envp, int count)
 	buff2 = spilt_string("\n", buff);
 	while (*(buff2 + i) != NULL)
 	{
+
 		argv = spilt_string(" ", *(buff2 + i));
 		if (argv == NULL)
 			perror("invalid pls try again");
 		lsi = isExit(*(buff2 + i));
+
 		if (lsi != 0)
 		{
+
 			free_grid(env), free_grid(buff2), free_grid(argv), free(buff), exit(status);
 		}
 		if (strcmp(*(buff2 + i), "env") == 0)
 		{
 			print_env(envp), free_grid(env), free_grid(buff2), free(buff), exit(status);
 		}
-
 		check_state(is_compelte, argv, count, filename, env);
 		i++;
 	}

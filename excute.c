@@ -16,7 +16,6 @@ char *make_path_arr(char **str)
 		if (strncmp(str[i], "PATH", 4) == 0)
 		{
 			char *tmp = str[i] + 5;
-
 			return (tmp);
 		}
 		i++;

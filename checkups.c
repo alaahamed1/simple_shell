@@ -43,7 +43,9 @@ void check_if_true(char *pathname, char **argv, int count, char *filename)
 	if (pathname != NULL && access(pathname, X_OK) == 0)
 		excute_function(argv, pathname);
 	else
+	{
 		printf("%s: %d: %s: not found\n", filename, count, argv[0]), status = 127;
+	}
 }
 /**
  * isExit - function for the exit command
@@ -56,8 +58,8 @@ int isExit(char *c)
 	int num = 0;
 	const char *tmp;
 
-		if (c[strlen(c) - 1] == '\n')
-			c[strlen(c) - 1] = '\0';
+	if (c[strlen(c) - 1] == '\n')
+		c[strlen(c) - 1] = '\0';
 	exii = "exit";
 	if (strncmp(c, exii, 4) == 0)
 	{
@@ -66,23 +68,18 @@ int isExit(char *c)
 			return (1);
 		}
 		tmp = c + 5;
+
 		num = atoi(tmp);
 		if (num <= 0)
 		{
 			status = 2;
 			return (status);
 		}
+		status = num;
 		return (num);
 	}
 	return (0);
 }
-/**
- * exit_case - funciion to print errors
- * @count: counter of the command
- * @filename: filname
- * @val: value of the error
- * Return: integer
-*/
 int exit_case(int count, char *filename, char *val)
 {
 	fprintf(stderr, "%s: %d: exit: Illegal number: %s\n", filename, count, val);

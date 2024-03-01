@@ -1,9 +1,9 @@
-#include"header.h"
+#include "header.h"
 /**
  * print_env - print environment function
  * @envp: the envior to be printed
  * Return: void
-*/
+ */
 void print_env(char **envp)
 {
 	int i = 0;
@@ -20,7 +20,7 @@ void print_env(char **envp)
  * @n: size of the data being read
  * @stream: place where would the data be read from
  * Return: void
-*/
+ */
 int _getline(char **line_ptr, size_t *n, FILE *stream)
 {
 	size_t numberofchars = 0;
@@ -59,5 +59,6 @@ int _getline(char **line_ptr, size_t *n, FILE *stream)
  */
 char *_strtok(char *str, char *delim)
 {
+	status = status;
 	return (strtok(str, delim));
 }

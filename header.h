@@ -1,13 +1,14 @@
 #ifndef START_H
 #define START_H
-#include<stdio.h>
-#include<stdlib.h>
-#include<unistd.h>
-#include<fcntl.h>
-#include<string.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <unistd.h>
+#include <fcntl.h>
+#include <string.h>
 #include <sys/types.h>
 #include <sys/wait.h>
 extern int status;
+extern int errno;
 int isExit(char *c);
 int countwords(char *str, char *d);
 char **spilt_string(char *delim, char *str);
