@@ -117,6 +117,8 @@ void free_grid(char **grid)
 {
 	int count;
 
+	if (grid == NULL)
+		return;
 	count = 0;
 	status = status;
 	while (grid[count] != NULL)

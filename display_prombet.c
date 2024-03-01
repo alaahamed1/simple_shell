@@ -127,12 +127,11 @@ void non_interactive_mode(char **env, char **arg, char **envp, int count)
 
 		if (lsi != 0)
 		{
-
 			free_grid(env), free_grid(buff2), free_grid(argv), free(buff), exit(status);
 		}
 		if (strcmp(*(buff2 + i), "env") == 0)
 		{
-			print_env(envp), free_grid(env), free_grid(buff2), free(buff), exit(status);
+			print_env(envp), free_grid(argv), free_grid(buff2), free(buff), free_grid(env), exit(status);
 		}
 		check_state(is_compelte, argv, count, filename, env);
 		i++;

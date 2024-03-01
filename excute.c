@@ -10,12 +10,18 @@
 char *make_path_arr(char **str)
 {
 	int i = 0;
+	char *tmp = NULL;
 
+	if (str == NULL)
+		return (NULL);
 	while (str[i] != NULL)
 	{
 		if (strncmp(str[i], "PATH", 4) == 0)
 		{
-			char *tmp = str[i] + 5;
+			if (str[i][5] == '\0')
+				return (NULL);
+			
+			tmp = str[i] + 5;
 			return (tmp);
 		}
 		i++;

@@ -15,8 +15,8 @@ int main(int ac, char **arg, char **envp)
 	(void)ac;
 	en = make_path_arr(envp);
 
-	env = spilt_string(":", en);
-
+	if (en != NULL)
+		env = spilt_string(":", en);
 	if (isatty(STDIN_FILENO))
 		display_prompet(env, envp, arg, count);
 	else
