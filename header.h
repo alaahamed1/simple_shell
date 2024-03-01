@@ -28,4 +28,5 @@ int check_the_spaces(char *buff);
 void free_fun(char **tmp, int i, char *tmp2);
 void check_state(int is_cmplte, char **argv, int cnt, char *file, char **env);
 int exit_case(int count, char *filename, char *val);
+int check_the_semi_colon(char *c);
 #endif /* START_H */

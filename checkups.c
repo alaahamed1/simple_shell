@@ -80,6 +80,13 @@ int isExit(char *c)
 	}
 	return (0);
 }
+/**
+ * exit_case - exit
+ * @count: counter
+ * @filename: filname
+ * @val: value of the error
+ * Return: int
+*/
 int exit_case(int count, char *filename, char *val)
 {
 	fprintf(stderr, "%s: %d: exit: Illegal number: %s\n", filename, count, val);

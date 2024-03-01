@@ -11,7 +11,6 @@ void display_dollar_sign(void)
 	fflush(stdout);
 }
 int status = 0;
-int errno;
 /**
  * check_state - do a the final check on the command
  * @is_cmplte: chekc the command state
@@ -52,20 +51,16 @@ void display_prompet(char **env, char **envp, char **arg, int count)
 
 	while (isatty(STDIN_FILENO))
 	{
-
 		count++;
 		display_dollar_sign();
 		t = _getline(&buff, &n, stdin);
 		if (t == -1)
 		{
-			free_grid(env);
-			exit(status);
+			free_grid(env), exit(status);
 		}
 		if (isExit(buff) != 0)
 		{
-			free_grid(env);
-			free(buff);
-			exit(status);
+			free_grid(env), free(buff), exit(status);
 		}
 		if (strcmp(buff, "\n") == 0 || check_the_spaces(buff) == 0)
 		{
@@ -76,8 +71,7 @@ void display_prompet(char **env, char **envp, char **arg, int count)
 			buff[t - 1] = '\0';
 		if (strcmp(buff, "env") == 0)
 		{
-			print_env(envp);
-			free(buff);
+			print_env(envp), free(buff);
 			continue;
 		}
 		argv = spilt_string(" ", buff);
@@ -87,7 +81,6 @@ void display_prompet(char **env, char **envp, char **arg, int count)
 			continue;
 		}
 		check_state(is_compelte, argv, count, filename, env);
-
 		free(buff);
 	}
 }
@@ -111,32 +104,45 @@ void non_interactive_mode(char **env, char **arg, char **envp, int count)
 	{
 		if (status == 2)
 			exit_case(count, filename, (buff + 5));
-		free_grid(env);
-		free(buff);
-		exit(status);
+		free_grid(env), free(buff), exit(status);
 	}
 	buff[strlen(buff)] = '\0';
-	buff2 = spilt_string("\n", buff);
+	if (check_the_semi_colon(buff) == 0)
+		buff2 = spilt_string("\n", buff);
+	else
+		buff2 = spilt_string(";", buff);
 	while (*(buff2 + i) != NULL)
 	{
-
 		argv = spilt_string(" ", *(buff2 + i));
-		if (argv == NULL)
-			perror("invalid pls try again");
 		lsi = isExit(*(buff2 + i));
-
 		if (lsi != 0)
 		{
 			free_grid(env), free_grid(buff2), free_grid(argv), free(buff), exit(status);
 		}
 		if (strcmp(*(buff2 + i), "env") == 0)
 		{
-			print_env(envp), free_grid(argv), free_grid(buff2), free(buff), free_grid(env), exit(status);
+			print_env(envp), free_grid(argv), free_grid(buff2);
+			free(buff), free_grid(env), exit(status);
 		}
 		check_state(is_compelte, argv, count, filename, env);
 		i++;
 	}
-	free_grid(env);
-	free_grid(buff2);
-	free(buff);
+	free_grid(env), free_grid(buff2), free(buff), exit(status);
+}
+/**
+ * check_the_semi_colon - function
+ * @c: charachter
+ * Return: int
+*/
+int check_the_semi_colon(char *c)
+{
+	int i = 0;
+
+	while (c[i] != '\0')
+	{
+		if (c[i] == ';')
+			return (1);
+		i++;
+	}
+	return (0);
 }
