@@ -41,9 +41,9 @@ int check_the_slash(char *str)
 void check_if_true(char *pathname, char **argv, int count, char *filename)
 {
 	if (pathname != NULL && access(pathname, X_OK) == 0)
-		excute_function(argv, pathname, filename);
+		excute_function(argv, pathname);
 	else
-		printf("%s: %d: %s: not found\n", filename, count, argv[0]);
+		printf("%s: %d: %s: not found\n", filename, count, argv[0]), status = 127;
 }
 /**
  * isExit - function for the exit command
@@ -61,12 +61,30 @@ int isExit(char *c)
 	exii = "exit";
 	if (strncmp(c, exii, 4) == 0)
 	{
-		if (c[5] == '\0')
-			return (-1);
+		if (countwords(c, " ") == 1 || strcmp(exii, c) == 0)
+		{
+			return (1);
+		}
 		tmp = c + 5;
-
 		num = atoi(tmp);
+		if (num <= 0)
+		{
+			status = 2;
+			return (status);
+		}
 		return (num);
 	}
 	return (0);
+}
+/**
+ * exit_case - funciion to print errors
+ * @count: counter of the command
+ * @filename: filname
+ * @val: value of the error
+ * Return: integer
+*/
+int exit_case(int count, char *filename, char *val)
+{
+	fprintf(stderr, "%s: %d: exit: Illegal number: %s\n", filename, count, val);
+	return (2);
 }

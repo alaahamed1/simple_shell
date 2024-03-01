@@ -14,7 +14,6 @@ int main(int ac, char **arg, char **envp)
 
 	(void)ac;
 	en = make_path_arr(envp);
-
 	env = spilt_string(":", en);
 
 
@@ -22,6 +21,7 @@ int main(int ac, char **arg, char **envp)
 		display_prompet(env, envp, arg, count);
 	else
 		non_interactive_mode(env, arg, envp, count);
+	status = status;
 
 	return (0);
 }

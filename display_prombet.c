@@ -10,6 +10,7 @@ void display_dollar_sign(void)
 	write(STDOUT_FILENO, prombet, 2);
 	fflush(stdout);
 }
+int status = 0;
 /**
  * check_state - do a the final check on the command
  * @is_cmplte: chekc the command state
@@ -45,27 +46,26 @@ void check_state(int is_cmplte, char **argv, int cnt, char *file, char **env)
 void display_prompet(char **env, char **envp, char **arg, int count)
 {
 	char *filename = arg[0], *buff = NULL, **argv = NULL;
-	size_t t = 0, n = 10000;
-	int is_compelte = 0, status = 0;
+	size_t n = 10000;
+	int is_compelte = 0, t = 0;
 
 	while (isatty(STDIN_FILENO))
 	{
 		count++;
 		display_dollar_sign();
 		t = _getline(&buff, &n, stdin);
+		if(t == -1)
+		{
+			free_grid(env), exit(status);
+		}
+		if(isExit(buff) != 0)
+		{
+			free_grid(env),free(buff),exit(status);
+		}
 		if (strcmp(buff, "\n") == 0 || check_the_spaces(buff) == 0)
 		{
 			free(buff);
 			continue;
-		}
-		status = isExit(buff);
-		if ((int)t == -1 || status != 0)
-		{
-			free_grid(env);
-			free(buff);
-			if (status == -1)
-				exit(0);
-			exit(status);
 		}
 		else if ((t > 0) && (buff[t - 1] == '\n'))
 			buff[t - 1] = '\0';
@@ -96,13 +96,15 @@ void display_prompet(char **env, char **envp, char **arg, int count)
 void non_interactive_mode(char **env, char **arg, char **envp, int count)
 {
 	char *filename = arg[0], *buff = NULL, **buff2 = NULL, **argv = NULL;
-	int is_compelte = 0, i = 0, status = 0;
+	int is_compelte = 0, i = 0, lsi = 0;
 	size_t t = 0, n = 10000;
 
 	t = _getline(&buff, &n, stdin);
-	status = isExit(buff);
-	if ((int)t == -1 || status != 0 || check_the_spaces(buff) == 0)
+	count++;
+	if ((int)t == -1 || isExit(buff) != 0 || check_the_spaces(buff) == 0)
 	{
+		if (status == 2)
+			exit_case(count, filename, (buff + 5));
 		free_grid(env);
 		free(buff);
 		exit(status);
@@ -111,22 +113,17 @@ void non_interactive_mode(char **env, char **arg, char **envp, int count)
 	buff2 = spilt_string("\n", buff);
 	while (*(buff2 + i) != NULL)
 	{
-		count++;
 		argv = spilt_string(" ", *(buff2 + i));
 		if (argv == NULL)
 			perror("invalid pls try again");
-
-		if (status == 1)
-		{
-			free_grid(env), free_grid(buff2), free_grid(argv), free(buff), exit(0);
-		}
-		else if (status != 0)
+		lsi = isExit(*(buff2 + i));
+		if (lsi != 0)
 		{
 			free_grid(env), free_grid(buff2), free_grid(argv), free(buff), exit(status);
 		}
 		if (strcmp(*(buff2 + i), "env") == 0)
 		{
-			print_env(envp), free_grid(env), free_grid(buff2), free(buff), exit(0);
+			print_env(envp), free_grid(env), free_grid(buff2), free(buff), exit(status);
 		}
 
 		check_state(is_compelte, argv, count, filename, env);

@@ -30,6 +30,8 @@ int countwords(char *str, char *d)
 		if (str[i] != '\0')
 			i++;
 	}
+	if (str[i - 1] != ' ' && str[i - 2] == ' ')
+		n++; 
 	if ((i - 2 >= 0) && str[i - 2] == delim && str[i - 2] != '\0')
 		n--;
 	return (n + 1);
@@ -116,6 +118,7 @@ void free_grid(char **grid)
 	int count;
 
 	count = 0;
+	status = status;
 	while (grid[count] != NULL)
 	{
 		free(grid[count]);

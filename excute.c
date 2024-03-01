@@ -69,26 +69,22 @@ char *compare_and_set_env(char **env, char **argv)
  * excute_function - Executes a given command
  * @argv: Pointer to the array of command-line arguments,
  * @str: Path to the executable file.
- * @filename: Name of the executable file.
  * Return: 1 upon successful execution,
  */
-int excute_function(char **argv, char *str, char *filename)
+int excute_function(char **argv, char *str)
 {
 	int id = fork();
+	int s;
 
 	if (id == 0)
 	{
-		if (execve(str, argv, NULL) == -1)
-		{
-			printf("%s: No such file or directory", filename);
-			exit(1);
-		}
-		else
-			return (1);
+		execve(str, argv, NULL);
+		exit(0);
 	}
 	else
 	{
-		wait(NULL);
+		wait(&s);
+		status = WEXITSTATUS(s);
 	}
 	return (1);
 }
