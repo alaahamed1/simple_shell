@@ -44,7 +44,7 @@ void check_if_true(char *pathname, char **argv, int count, char *filename)
 		excute_function(argv, pathname);
 	else
 	{
-		printf("%s: %d: %s: not found\n", filename, count, argv[0]), status = 127;
+		fprintf(stderr, "%s: %d: %s: not found\n", filename, count, argv[0]), status = 127;
 	}
 }
 /**
